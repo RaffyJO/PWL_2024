@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/hello', function () {
-    return 'Hello World';
-});
+// Route::get('/hello', function () {
+//     return 'Hello World';
+// });
 
 Route::get('/', function () {
     return 'Selamat Datang';
@@ -52,16 +58,16 @@ Route::get('/user/profile', function () {
     //
 })->name('profile');
 
-Route::get(
-    '/user/profile',
-    [UserProfileController::class, 'show']
-)->name('profile');
+// Route::get(
+//     '/user/profile',
+//     [UserProfileController::class, 'show']
+// )->name('profile');
 
 // Generating URLs...
-$url = route('profile');
+// $url = route('profile');
 
 // Generating Redirects...
-return redirect()->route('profile');
+// return redirect()->route('profile');
 
 // Redirect Routes
 Route::redirect('/tentang', '/about');
@@ -69,3 +75,24 @@ Route::redirect('/tentang', '/about');
 // View Routes
 Route::view('/welcome', 'welcome');
 Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
+
+Route::get('/hello', [WelcomeController::class, 'hello']);
+
+Route::get('/', [PageController::class, 'index']);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/articles/{id}', [PageController::class, 'articles']);
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/about', [AboutController::class, 'about']);
+Route::get('/articles/{id}', [ArticleController::class, 'articles']);
+
+// Resource Controller
+// Route::resource('photos', PhotoController::class);
+
+Route::resource('photos', PhotoController::class)->only([
+    'index', 'show'
+]);
+
+Route::resource('photos', PhotoController::class)->except([
+    'create', 'store', 'update', 'destroy'
+]);
