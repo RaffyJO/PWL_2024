@@ -96,3 +96,18 @@ Route::resource('photos', PhotoController::class)->only([
 Route::resource('photos', PhotoController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);
+
+// Route::get('/greeting', function () {
+//     return view('hello', ['name' => 'Andi']);
+// });
+
+// View dalam direktori
+Route::get('/greeting', function () {
+    return view('blog.hello', ['name' => 'Andi']);
+});
+/* Hasil amatan saya mengenai pemanggilan view tersebut, 
+   jika terdapat folder di dalam file blade.php gunakan dot (.) 
+   sebelum memanggil nama file tersebut*/
+
+// Menampilkan View dari Controller
+Route::get('/greeting', [WelcomeController::class, 'greeting']);
