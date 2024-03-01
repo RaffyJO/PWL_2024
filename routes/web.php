@@ -27,6 +27,10 @@ use Illuminate\Support\Facades\Route;
 //     return 'Hello World';
 // });
 
+Route::get('/world', function () {
+    return 'World';
+});
+
 Route::get('/', function () {
     return 'Selamat Datang';
 });
@@ -71,6 +75,13 @@ Route::get('/user/profile', function () {
 
 // Redirect Routes
 Route::redirect('/tentang', '/about');
+
+// Route Prefixes
+Route::prefix('admin')->group(function () {
+    Route::get('/user', function () {
+        return 'Ini Prefix Routes';
+    });
+});
 
 // View Routes
 Route::view('/welcome', 'welcome');
